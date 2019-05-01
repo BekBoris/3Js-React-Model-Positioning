@@ -1,0 +1,18 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.inputDiv {
+    width: 400px;
+    margin: auto;
+}
+
+input[type=number] {
+    width: 33.33%;
+}
+
+select {
+  margin-right: 25px;
+}

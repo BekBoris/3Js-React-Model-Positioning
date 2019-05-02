@@ -8,10 +8,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     // STATE FOR UPDATING INPUTS VALUE AND SET MODEL POSITION
-    this.state = {cameraPosition: { x: 0, y: 0, z: 0.35 },
+    this.state = {cameraPosition: { x: 0, y: 0, z: 0.5 },
                   position: { x: 0, y: 0, z: 0 },
                   rotation: { x: 0.9, y: 0, z: 0 },
-                  scale: { x: 2, y: 1, z: 1 } }
+                  scale: { x: 1, y: 1, z: 1 } }
   }
   // FUNCTION FOR SAVE VALUES FORM INPUT AND MOUSE POINTER
   stateUpdate = (event, direction, axis, ajustFunc) => {
@@ -30,10 +30,9 @@ class App extends React.Component {
     //ADD SCENE
     this.scene = new THREE.Scene();
     //ADD CAMERA
-    this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    this.camera.position.x = 0;
-    this.camera.position.y = 0;
-    this.camera.position.z = 0.35; // ADD LIGHT
+    this.camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
+    // CAMERA POSITION 
+    this.camera.position.z = 0.5;
     // LIGHT
     var light = new THREE.AmbientLight(0xffffff, 3.3);
     this.scene.add(light);
@@ -50,19 +49,11 @@ class App extends React.Component {
     // LODING GLB FILE FROM ROOT FOLDER
     this.loader = new GLTFLoader();
     this.loader.load(fileGlb, gltf => {
-      // FIRST MODEL POSITION INITIALIZATION
+      // FIRST MODEL  INITIALIZATION
       this.scene.add(gltf.scene);
-      gltf.scene.position.x = 0;
-      gltf.scene.position.y = 0;
-      gltf.scene.position.z = 0;
-
       gltf.scene.rotation.x = 0.9;
-      gltf.scene.rotation.y = 0;
-      gltf.scene.rotation.z = 0;
 
-      gltf.scene.scale.x = 2;
-      gltf.scene.scale.y = 1;
-      gltf.scene.scale.z = 1;
+
       this.renderer.render(this.scene, this.camera);
     }, undefined, error => {
       console.error(error);

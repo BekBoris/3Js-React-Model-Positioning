@@ -11,7 +11,7 @@ class App extends React.Component {
     this.state = {cameraPosition: { x: 0, y: 0, z: 0.35 },
                   position: { x: 0, y: 0, z: 0 },
                   rotation: { x: 0.9, y: 0, z: 0 },
-                  scale: { x: 1, y: 1, z: 1 } }
+                  scale: { x: 2, y: 1, z: 1 } }
   }
   // FUNCTION FOR SAVE VALUES FORM INPUT AND MOUSE POINTER
   stateUpdate = (event, direction, axis, ajustFunc) => {
@@ -55,10 +55,12 @@ class App extends React.Component {
       gltf.scene.position.x = 0;
       gltf.scene.position.y = 0;
       gltf.scene.position.z = 0;
+
       gltf.scene.rotation.x = 0.9;
       gltf.scene.rotation.y = 0;
       gltf.scene.rotation.z = 0;
-      gltf.scene.scale.x = 1;
+
+      gltf.scene.scale.x = 2;
       gltf.scene.scale.y = 1;
       gltf.scene.scale.z = 1;
       this.renderer.render(this.scene, this.camera);
@@ -150,11 +152,11 @@ class App extends React.Component {
         <div>
           <p>Rotation</p>
           <input type="number" value={this.state.rotation.x}
-                  onChange={event => this.stateUpdate(event, "rotation", "x", this.cameraMove)}/>
+                  onChange={event => this.stateUpdate(event, "rotation", "x", this.objRotation)}/>
           <input type="number" value={this.state.rotation.y}
-                  onChange={event => this.stateUpdate(event, "rotation", "y", this.cameraMove)}/>
+                  onChange={event => this.stateUpdate(event, "rotation", "y", this.objRotation)}/>
           <input type="number" value={this.state.rotation.z}
-                  onChange={event => this.stateUpdate(event, "rotation", "z", this.cameraMove)}/>
+                  onChange={event => this.stateUpdate(event, "rotation", "z", this.objRotation)}/>
         </div>
         </div>
 
@@ -162,11 +164,11 @@ class App extends React.Component {
         <div>
           <p>Scale</p>
           <input type="number" value={this.state.scale.x}
-                  onChange={event => this.stateUpdate(event, "scale", "x", this.cameraMove)}/>
+                  onChange={event => this.stateUpdate(event, "scale", "x", this.objScale)}/>
           <input type="number" value={this.state.scale.y}
-                  onChange={event => this.stateUpdate(event, "scale", "y", this.cameraMove)}/>
+                  onChange={event => this.stateUpdate(event, "scale", "y", this.objScale)}/>
           <input type="number" value={this.state.scale.z}
-                  onChange={event => this.stateUpdate(event, "scale", "z", this.cameraMove)}/>
+                  onChange={event => this.stateUpdate(event, "scale", "z", this.objScale)}/>
         </div>
         </div>
 

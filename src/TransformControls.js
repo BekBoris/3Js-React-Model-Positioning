@@ -1,8 +1,6 @@
-/**
- * @author arodic / https://github.com/arodic
- */
+import * as THREE from 'three';
 
-THREE.TransformControls = function ( camera, domElement ) {
+function TransformControls ( camera, domElement ) {
 
 	THREE.Object3D.call( this );
 
@@ -10,10 +8,10 @@ THREE.TransformControls = function ( camera, domElement ) {
 
 	this.visible = false;
 
-	var _gizmo = new THREE.TransformControlsGizmo();
+	var _gizmo = new TransformControlsGizmo();
 	this.add( _gizmo );
 
-	var _plane = new THREE.TransformControlsPlane();
+	var _plane = new TransformControlsPlane();
 	this.add( _plane );
 
 	var scope = this;
@@ -437,6 +435,8 @@ THREE.TransformControls = function ( camera, domElement ) {
 
 			var ROTATION_SPEED = 20 / worldPosition.distanceTo( _tempVector.setFromMatrixPosition( this.camera.matrixWorld ) );
 
+			console.log( ROTATION_SPEED );
+
 			if ( axis === 'E' ) {
 
 				rotationAxis.copy( eye );
@@ -611,16 +611,16 @@ THREE.TransformControls = function ( camera, domElement ) {
 
 };
 
-THREE.TransformControls.prototype = Object.assign( Object.create( THREE.Object3D.prototype ), {
 
-  constructor: THREE.TransformControls,
+TransformControls.prototype = Object.assign( Object.create( THREE.Object3D.prototype ), {
+
+  constructor: TransformControls,
 
   isTransformControls: true
 
 } );
 
-
-THREE.TransformControlsGizmo = function () {
+function TransformControlsGizmo () {
 
 	'use strict';
 
@@ -1362,18 +1362,16 @@ THREE.TransformControlsGizmo = function () {
 
 };
 
-THREE.TransformControlsGizmo.prototype = Object.assign( Object.create( THREE.Object3D.prototype ), {
+TransformControlsGizmo.prototype = Object.assign( Object.create( THREE.Object3D.prototype ), {
 
-	constructor: THREE.TransformControlsGizmo,
+	constructor: TransformControlsGizmo,
 
 	isTransformControlsGizmo: true
 
 } );
 
 
-THREE.TransformControlsPlane = function () {
-
-	'use strict';
+function TransformControlsPlane () {
 
 	THREE.Mesh.call( this,
 		new THREE.PlaneBufferGeometry( 100000, 100000, 2, 2 ),
@@ -1465,10 +1463,12 @@ THREE.TransformControlsPlane = function () {
 
 };
 
-THREE.TransformControlsPlane.prototype = Object.assign( Object.create( THREE.Mesh.prototype ), {
+TransformControlsPlane.prototype = Object.assign( Object.create( THREE.Mesh.prototype ), {
 
-	constructor: THREE.TransformControlsPlane,
+	constructor: TransformControlsPlane,
 
 	isTransformControlsPlane: true
 
 } );
+
+export default  TransformControls ;

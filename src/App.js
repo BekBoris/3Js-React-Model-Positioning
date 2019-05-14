@@ -3,6 +3,7 @@ import React from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import  TransformControls  from './TransformControls.js'
 import fileGlb from './bread.glb' // GLB FILE
 
 class App extends React.Component {
@@ -55,16 +56,19 @@ class App extends React.Component {
 
 
     //ADD TRANSFORM CONTROL FROM INDEX.HTML
-    this.control = new window.THREE.TransformControls( this.camera, this.renderer.domElement );
+    this.control = new TransformControls( this.camera, this.renderer.domElement );
     this.control.setSize(1);
 
     // ADD EVENT LISTNER TO MOVE MODEL AND CHANGE REACT STATE TO CHANGE VALUSE IN INPUTS
-    this.control.addEventListener( 'change', () => {
-      this.renderer.render(this.scene, this.camera)
-      this.updateSetState() ;} );
+    this.control.addEventListener( 'change', () => { this.renderer.render(this.scene, this.camera); });
+
+
+
 
     // EVENT LISTNER TO DISABLE ORBIT MOVE
-    this.control.addEventListener( 'dragging-changed', ( event ) => this.orbit.enabled = ! event.value);
+    this.control.addEventListener( 'dragging-changed', ( event ) => {
+      this.updateSetState();
+      this.orbit.enabled = ! event.value});
 
     // ORBIT CONTROL
     this.orbit = new OrbitControls( this.camera, this.renderer.domElement );
@@ -101,7 +105,7 @@ class App extends React.Component {
 
   };
 
-  // UPDATE REACT STATE
+  // UPDATE REACT STATE AND INPUT VALUE
   updateSetState = () => {
     if (this.gltf !== undefined) {
       this.setState((state) => {
@@ -151,57 +155,59 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="inputDiv">
-        <div
-          style={{width: "600px", height: "600px"}}
-          ref={mount => this.mount = mount}>
-        </div>
+      <div className="cont">
+        <div className="inputDiv">
+            <div
+              style={{width: "500px", height: "500px"}}
+              ref={mount => this.mount = mount}>
+            </div>
 
-        <div>
           <div>
-            <p>Position</p>
-            <input type="number" value={this.state.position.x}
-                    onChange={event => this.stateUpdate(event, "position", "x", this.objPosition)}/>
-            <input type="number" value={this.state.position.y}
-                    onChange={event => this.stateUpdate(event, "position", "y", this.objPosition)}/>
-            <input type="number" value={this.state.position.z}
-                    onChange={event => this.stateUpdate(event, "position", "z", this.objPosition)}/>
+            <div>
+              <p>Position</p>
+              <input type="number" value={this.state.position.x}
+                      onChange={event => this.stateUpdate(event, "position", "x", this.objPosition)}/>
+              <input type="number" value={this.state.position.y}
+                      onChange={event => this.stateUpdate(event, "position", "y", this.objPosition)}/>
+              <input type="number" value={this.state.position.z}
+                      onChange={event => this.stateUpdate(event, "position", "z", this.objPosition)}/>
+            </div>
           </div>
-        </div>
 
-        <div>
-        <div>
-          <p>Rotation</p>
-          <input type="number" value={this.state.rotation.x}
-                  onChange={event => this.stateUpdate(event, "rotation", "x", this.objRotation)}/>
-                <input type="number" value={this.state.rotation.y}
-                  onChange={event => this.stateUpdate(event, "rotation", "y", this.objRotation)}/>
-                <input type="number" value={this.state.rotation.z}
-                  onChange={event => this.stateUpdate(event, "rotation", "z", this.objRotation)}/>
-        </div>
-        </div>
+          <div>
+          <div>
+            <p>Rotation</p>
+            <input type="number" value={this.state.rotation.x}
+                    onChange={event => this.stateUpdate(event, "rotation", "x", this.objRotation)}/>
+                  <input type="number" value={this.state.rotation.y}
+                    onChange={event => this.stateUpdate(event, "rotation", "y", this.objRotation)}/>
+                  <input type="number" value={this.state.rotation.z}
+                    onChange={event => this.stateUpdate(event, "rotation", "z", this.objRotation)}/>
+          </div>
+          </div>
 
-        <div>
-        <div>
-          <p>Scale</p>
-          <input type="number" value={this.state.scale.x}
-                  onChange={event => this.stateUpdate(event, "scale", "x", this.objScale)}/>
-          <input type="number" value={this.state.scale.y}
-                  onChange={event => this.stateUpdate(event, "scale", "y", this.objScale)}/>
-          <input type="number" value={this.state.scale.z}
-                  onChange={event => this.stateUpdate(event, "scale", "z", this.objScale)}/>
-        </div>
-        </div>
+          <div>
+          <div>
+            <p>Scale</p>
+            <input type="number" value={this.state.scale.x}
+                    onChange={event => this.stateUpdate(event, "scale", "x", this.objScale)}/>
+            <input type="number" value={this.state.scale.y}
+                    onChange={event => this.stateUpdate(event, "scale", "y", this.objScale)}/>
+            <input type="number" value={this.state.scale.z}
+                    onChange={event => this.stateUpdate(event, "scale", "z", this.objScale)}/>
+          </div>
+          </div>
 
-        <p>Hold Left Click Down to movie the object</p>
-        <div>
-          <select onChange={this.posRotScale} ref={valType => this.valType = valType}>
-            <option value="position">position</option>
-            <option value="rotation">rotation</option>
-            <option value="scale">scale</option>
-          </select>
-        </div>
+          <div>
+            <p>Position Rotation Scaled Selector</p>
+            <select onChange={this.posRotScale} ref={valType => this.valType = valType}>
+              <option value="position">position</option>
+              <option value="rotation">rotation</option>
+              <option value="scale">scale</option>
+            </select>
+          </div>
 
+        </div>
       </div>
     );
   }

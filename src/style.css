@@ -5,14 +5,10 @@
 }
 
 .inputDiv {
-    width: 400px;
+    width: 500px;
     margin: auto;
 }
 
 input[type=number] {
     width: 33.33%;
-}
-
-select {
-  margin-right: 25px;
 }
